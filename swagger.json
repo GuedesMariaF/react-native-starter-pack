@@ -1,0 +1,709 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Módulo predefinido",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Auth"
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "summary": "Login",
+        "deprecated": false,
+        "description": "",
+        "operationId": "loginEmailAndPassword",
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "admin@example.com",
+                "password": "password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "is_active": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email"
+                            },
+                            "role_id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "user_type": {
+                              "type": "string"
+                            },
+                            "user_type_label": {
+                              "type": "string"
+                            },
+                            "email_verified_at": {
+                              "type": "string",
+                              "format": "date-time",
+                              "nullable": true
+                            },
+                            "full_path_profile_picture": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "last_login": {
+                              "type": "string",
+                              "format": "date-time",
+                              "nullable": true
+                            },
+                            "permissions": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "nullable": true
+                            },
+                            "company": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "is_active": {
+                                  "type": "boolean"
+                                },
+                                "cnpj": {
+                                  "type": "string"
+                                },
+                                "corporate_name": {
+                                  "type": "string"
+                                },
+                                "trade_name": {
+                                  "type": "string"
+                                },
+                                "email": {
+                                  "type": "string",
+                                  "format": "email"
+                                },
+                                "phone": {
+                                  "type": "string"
+                                },
+                                "phone2": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "mobile_phone": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "owner_user": {
+                                  "$ref": "#/components/schemas/UserResource"
+                                },
+                                "full_path_company_logo": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                "updated_at": {
+                                  "type": "string",
+                                  "format": "date-time"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "cnpj",
+                                "corporate_name",
+                                "trade_name",
+                                "email",
+                                "phone",
+                                "created_at",
+                                "updated_at",
+                                "is_active",
+                                "phone2",
+                                "mobile_phone",
+                                "owner_user"
+                              ],
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "is_active",
+                            "name",
+                            "email",
+                            "role_id",
+                            "user_type",
+                            "user_type_label",
+                            "created_at",
+                            "updated_at"
+                          ]
+                        },
+                        "token": {
+                          "type": "string"
+                        },
+                        "refresh_expires_in": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "user",
+                        "token",
+                        "refresh_expires_in"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "error": false,
+                  "message": "Usuário logado com sucesso",
+                  "data": {
+                    "user": {
+                      "id": "019e1877-e032-7325-af7d-7da122faf9cb",
+                      "is_active": true,
+                      "name": "admin",
+                      "email": "admin@example.com",
+                      "role_id": "019e1877-ddf3-72a7-b507-6ff7a45b8dd1",
+                      "user_type": "system_admin",
+                      "user_type_label": "Administrador do Sistema",
+                      "email_verified_at": "2026-05-11T19:16:09.000000Z",
+                      "full_path_profile_picture": null,
+                      "company": null,
+                      "permissions": [
+                        "admin.change-status",
+                        "admin.create",
+                        "admin.delete",
+                        "admin.update",
+                        "admin.view",
+                        "audit_log.view",
+                        "company.change-status",
+                        "company.create",
+                        "company.delete",
+                        "company.update",
+                        "company.update-logo",
+                        "company.view",
+                        "dashboard.view",
+                        "permissions.view",
+                        "roles.create",
+                        "roles.delete",
+                        "roles.update",
+                        "roles.view",
+                        "user.change-status",
+                        "user.create",
+                        "user.delete",
+                        "user.update",
+                        "user.view"
+                      ],
+                      "created_at": "2026-05-11T19:16:09.000000Z",
+                      "updated_at": "2026-05-12T13:18:29.000000Z",
+                      "last_login": "2026-05-12T13:18:29.000000Z"
+                    },
+                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3Nzg1OTE5MDksImV4cCI6MTc3ODU5NTUwOSwibmJmIjoxNzc4NTkxOTA5LCJqdGkiOiJydkJnQzV3ZTF2WXdBTTZ3Iiwic3ViIjoiMDE5ZTE4NzctZTAzMi03MzI1LWFmN2QtN2RhMTIyZmFmOWNiIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.sCIMsMZVpNIRTUz-gIbJJnfh6vcSRRmUlS56_gOmqSo",
+                    "refresh_expires_in": 1209600
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/refresh-token": {
+      "post": {
+        "summary": "Refresh token",
+        "deprecated": false,
+        "description": "",
+        "operationId": "userRefreshToken",
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        },
+                        "refresh_expires_in": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "token",
+                        "refresh_expires_in"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "error": false,
+                  "message": "Token atualizado com sucesso",
+                  "data": {
+                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2F1dGgvcmVmcmVzaC10b2tlbiIsImlhdCI6MTc3NzU1MjUzMCwiZXhwIjoxNzc3NTU2MTM1LCJuYmYiOjE3Nzc1NTI1MzUsImp0aSI6IlpIR1ZFUnBSS29HNnV0NWgiLCJzdWIiOiIwMTlkZGU1Yi03YjA0LTcxYTMtOTU3Yi0wMjE3YmE2NDg4ZmUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.AIdZSzjI1vml8RxGnytF_tnQBcplxJdKEmNQgb9oxoQ",
+                    "refresh_expires_in": 1209600
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "summary": "me",
+        "deprecated": false,
+        "description": "",
+        "operationId": "me",
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "is_active": {
+                          "type": "boolean"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "role_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "user_type": {
+                          "type": "string"
+                        },
+                        "user_type_label": {
+                          "type": "string"
+                        },
+                        "email_verified_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "full_path_profile_picture": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "last_login": {
+                          "type": "string",
+                          "format": "date-time",
+                          "nullable": true
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "nullable": true
+                        },
+                        "company": {
+                          "$ref": "#/components/schemas/CompanyResource",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "is_active",
+                        "name",
+                        "email",
+                        "role_id",
+                        "user_type",
+                        "user_type_label",
+                        "created_at",
+                        "updated_at"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "error": false,
+                  "message": "Dados do usuário",
+                  "data": {
+                    "id": "019e1877-e032-7325-af7d-7da122faf9cb",
+                    "is_active": true,
+                    "name": "admin",
+                    "email": "admin@example.com",
+                    "role_id": "019e1877-ddf3-72a7-b507-6ff7a45b8dd1",
+                    "user_type": "system_admin",
+                    "user_type_label": "Administrador do Sistema",
+                    "email_verified_at": "2026-05-11T19:16:09.000000Z",
+                    "full_path_profile_picture": null,
+                    "company": null,
+                    "permissions": [
+                      "admin.change-status",
+                      "admin.create",
+                      "admin.delete",
+                      "admin.update",
+                      "admin.view",
+                      "audit_log.view",
+                      "company.change-status",
+                      "company.create",
+                      "company.delete",
+                      "company.update",
+                      "company.update-logo",
+                      "company.view",
+                      "dashboard.view",
+                      "permissions.view",
+                      "roles.create",
+                      "roles.delete",
+                      "roles.update",
+                      "roles.view",
+                      "user.change-status",
+                      "user.create",
+                      "user.delete",
+                      "user.update",
+                      "user.view"
+                    ],
+                    "created_at": "2026-05-11T19:16:09.000000Z",
+                    "updated_at": "2026-05-12T12:19:09.000000Z",
+                    "last_login": "2026-05-12T12:19:09.000000Z"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "role_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_type": {
+            "type": "string"
+          },
+          "user_type_label": {
+            "type": "string"
+          },
+          "email_verified_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "full_path_profile_picture": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_login": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "role_id",
+          "user_type",
+          "user_type_label",
+          "created_at",
+          "updated_at",
+          "is_active"
+        ]
+      },
+      "CompanyResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "corporate_name": {
+            "type": "string"
+          },
+          "trade_name": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressResource",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "phone2": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile_phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner_user": {
+            "$ref": "#/components/schemas/UserResource",
+            "nullable": true
+          },
+          "full_path_company_logo": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "cnpj",
+          "corporate_name",
+          "trade_name",
+          "email",
+          "phone",
+          "created_at",
+          "updated_at",
+          "is_active"
+        ]
+      },
+      "AddressResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "street": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "complement": {
+            "type": "string",
+            "nullable": true
+          },
+          "neighborhood": {
+            "type": "string"
+          },
+          "cep": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "maxLength": 2,
+            "minLength": 2
+          }
+        },
+        "required": [
+          "id",
+          "street",
+          "number",
+          "neighborhood",
+          "cep",
+          "city",
+          "state"
+        ]
+      }
+    },
+    "responses": {},
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "servers": [],
+  "security": []
+}
