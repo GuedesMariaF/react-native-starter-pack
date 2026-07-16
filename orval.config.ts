@@ -8,7 +8,7 @@ for (const envFile of [".env.local", ".env"]) {
 	}
 }
 
-const API_SWAGGER_URL = process.env.VITE_API_SWAGGER_URL;
+const API_SWAGGER_URL = process.env.EXPO_API_SWAGGER_URL;
 
 export default defineConfig({
 	api: {

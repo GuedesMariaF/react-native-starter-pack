@@ -1,31 +1,31 @@
-import { StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '@/lib/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const styles = StyleSheet.create({
+export const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.background,
-    gap: spacing.sm,
+    backgroundColor: theme.colors.background,
+    gap: theme.spacing.sm,
   },
   title: {
-    ...typography.subheading,
+    ...theme.typography.subheading,
+    color: theme.colors.text,
   },
   subtitle: {
-    ...typography.caption,
-    color: colors.textMuted,
-    marginBottom: spacing.lg,
+    ...theme.typography.caption,
+    color: theme.colors.textMuted,
+    marginBottom: theme.spacing.lg,
   },
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: theme.colors.primary,
     borderRadius: 8,
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.md,
+    paddingHorizontal: theme.spacing.xl,
+    paddingVertical: theme.spacing.md,
   },
   buttonText: {
-    color: colors.onPrimary,
-    ...typography.body,
+    color: theme.colors.onPrimary,
+    ...theme.typography.body,
     fontWeight: '600',
   },
-});
+}));

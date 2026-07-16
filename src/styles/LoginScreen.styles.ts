@@ -1,45 +1,46 @@
-import { StyleSheet } from 'react-native';
-import { colors, spacing, typography } from '@/lib/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const styles = StyleSheet.create({
+export const styles = StyleSheet.create((theme) => ({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: theme.colors.background,
   },
   form: {
-    paddingHorizontal: spacing.xl,
-    gap: spacing.md,
+    paddingHorizontal: theme.spacing.xl,
+    gap: theme.spacing.md,
   },
   title: {
-    ...typography.heading,
-    marginBottom: spacing.md,
+    ...theme.typography.heading,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.md,
   },
   input: {
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: theme.colors.border,
     borderRadius: 8,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    fontSize: typography.body.fontSize,
+    fontSize: theme.typography.body.fontSize,
+    color: theme.colors.text,
   },
   error: {
-    color: colors.danger,
-    fontSize: typography.caption.fontSize,
+    color: theme.colors.danger,
+    fontSize: theme.typography.caption.fontSize,
   },
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: theme.colors.primary,
     borderRadius: 8,
     paddingVertical: 14,
     alignItems: 'center',
-    marginTop: spacing.sm,
+    marginTop: theme.spacing.sm,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
   buttonText: {
-    color: colors.onPrimary,
-    ...typography.body,
+    color: theme.colors.onPrimary,
+    ...theme.typography.body,
     fontWeight: '600',
   },
-});
+}));
