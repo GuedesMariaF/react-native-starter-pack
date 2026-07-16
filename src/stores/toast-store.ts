@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Toast, ToastContextValue, ToastOptions } from '../components/ui/Toast.types';
+import type { Toast, ToastContextValue, ToastOptions } from '../components/ui/toast/Toast.types';
 
 const DEFAULT_TOAST_OPTIONS: Required<ToastOptions> = {
   duration: 3000,

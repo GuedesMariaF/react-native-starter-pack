@@ -1,7 +1,7 @@
 import type React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useToastStore } from '../../stores/toast-store';
+import { useToastStore } from '../../../stores/toast-store';
 import { Toast } from './Toast';
 
 export const ToastViewport: React.FC = () => {

@@ -18,7 +18,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
-import { useToastStore } from '../../stores/toast-store';
+import { useToastStore } from '../../../stores/toast-store';
 import type { Toast as ToastType, ToastType as ToastVariant } from './Toast.types';
 
 if (Platform.OS === 'android') {
@@ -167,11 +167,6 @@ export const Toast: React.FC<ToastProps> = ({ toast, index }) => {
     });
 
     setTimeout(() => {
-      // opacity.value = withTiming(1, {
-      //   duration: 500,
-      //   easing: Easing.bezier(0.25, 0.46, 0.45, 0.94),
-      // });
-
       translateY.value = withSpring(getStackOffset(), {
         damping: 28,
         stiffness: 140,
@@ -230,7 +225,6 @@ export const Toast: React.FC<ToastProps> = ({ toast, index }) => {
     getStackOffset,
   ]);
 
-  // Animate expansion
   useEffect(() => {
     if (isExpanded && hasExpandedContent) {
       expandHeight.value = withSpring(1, {
@@ -336,7 +330,6 @@ export const Toast: React.FC<ToastProps> = ({ toast, index }) => {
           )}
         </View>
 
-        {/* Expanded Content */}
         {hasExpandedContent && (
           <Animated.View style={[styles.expandedContent, expandedContentStyle]}>
             {renderExpandedContent()}

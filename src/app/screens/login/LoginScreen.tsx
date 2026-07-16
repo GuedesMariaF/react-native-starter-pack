@@ -1,4 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   ActivityIndicator,
@@ -9,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useStyles } from 'react-native-unistyles';
 import type { z } from 'zod';
 import { useLoginEmailAndPassword } from '@/api/generated/auth/auth';
 import { signInFormSchema } from '@/schema/auth';
@@ -19,6 +22,8 @@ import { styles } from '../../../styles/LoginScreen.styles';
 export default function LoginScreen() {
   const completeLogin = useAuthStore((state) => state.completeLogin);
   const { mutateAsync } = useLoginEmailAndPassword();
+  const [showPassword, setShowPassword] = useState(false);
+  const { theme } = useStyles();
 
   const {
     control,
@@ -53,43 +58,74 @@ export default function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.form}>
-        <Text style={styles.title}>Entrar</Text>
+        <GrainyGradient />
+        <View style={styles.header}>
+          <Text style={styles.title}>Bem-vindo de volta</Text>
+          <Text style={styles.subtitle}>
+            Bom te ver aqui! Insira suas credenciais para continuar.
+          </Text>
+        </View>
 
-        <Controller
-          control={control}
-          name="email"
-          render={({ field: { value, onChange } }) => (
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              value={value}
-              onChangeText={onChange}
-              editable={!isSubmitting}
-            />
-          )}
-        />
-        {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
+        <View style={styles.fieldGroup}>
+          <Text style={styles.label}>E-mail</Text>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                style={[styles.input, errors.email && styles.inputError]}
+                placeholder="seu@email.com"
+                placeholderTextColor={theme.colors.textMuted}
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                value={value}
+                onChangeText={onChange}
+                editable={!isSubmitting}
+              />
+            )}
+          />
+          {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
+        </View>
 
-        <Controller
-          control={control}
-          name="password"
-          render={({ field: { value, onChange } }) => (
-            <TextInput
-              style={styles.input}
-              placeholder="Senha"
-              secureTextEntry
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={value}
-              onChangeText={onChange}
-              editable={!isSubmitting}
-            />
-          )}
-        />
-        {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
+        <View style={styles.fieldGroup}>
+          <View style={styles.labelRow}>
+            <Text style={styles.label}>Senha</Text>
+            <Pressable>
+              <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
+            </Pressable>
+          </View>
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { value, onChange } }) => (
+              <View style={[styles.inputWrapper, errors.password && styles.inputError]}>
+                <TextInput
+                  style={styles.inputInner}
+                  placeholder="Digite sua senha"
+                  placeholderTextColor={theme.colors.textMuted}
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  value={value}
+                  onChangeText={onChange}
+                  editable={!isSubmitting}
+                />
+                <Pressable
+                  onPress={() => setShowPassword((prev) => !prev)}
+                  style={styles.eyeButton}
+                >
+                  <Ionicons
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={20}
+                    color={theme.colors.textMuted}
+                  />
+                </Pressable>
+              </View>
+            )}
+          />
+          {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
+        </View>
 
         <Pressable
           style={[styles.button, isSubmitting && styles.buttonDisabled]}
@@ -97,7 +133,7 @@ export default function LoginScreen() {
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <ActivityIndicator color="#fff" />
+            <ActivityIndicator color={theme.colors.onPrimary} />
           ) : (
             <Text style={styles.buttonText}>Entrar</Text>
           )}
