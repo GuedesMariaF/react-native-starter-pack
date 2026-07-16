@@ -1,7 +1,7 @@
 import { Pressable, Text, View } from 'react-native';
 import { useShallow } from 'zustand/react/shallow';
 import { useAuthStore } from '@/stores/auth-store';
-import { styles } from '@/styles/HomeScreen.styles';
+import { useHomeStyles } from '@/styles/HomeScreen.styles';
 
 export default function HomeScreen() {
   const { user, logout } = useAuthStore(
@@ -10,6 +10,7 @@ export default function HomeScreen() {
       logout: state.logout,
     })),
   );
+  const styles = useHomeStyles();
 
   return (
     <View style={styles.container}>

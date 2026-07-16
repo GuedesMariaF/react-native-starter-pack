@@ -11,19 +11,20 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { useStyles } from 'react-native-unistyles';
 import type { z } from 'zod';
 import { useLoginEmailAndPassword } from '@/api/generated/auth/auth';
+import { useTheme } from '@/lib/theme';
 import { signInFormSchema } from '@/schema/auth';
 import { useAuthStore } from '@/stores/auth-store';
 import { onError as showErrorToast } from '@/utils/on-error';
-import { styles } from '../../../styles/LoginScreen.styles';
+import { useLoginStyles } from '../../../styles/LoginScreen.styles';
 
 export default function LoginScreen() {
   const completeLogin = useAuthStore((state) => state.completeLogin);
   const { mutateAsync } = useLoginEmailAndPassword();
   const [showPassword, setShowPassword] = useState(false);
-  const { theme } = useStyles();
+  const theme = useTheme();
+  const styles = useLoginStyles();
 
   const {
     control,
@@ -57,8 +58,7 @@ export default function LoginScreen() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={styles.form}>
-        <GrainyGradient />
+<View style={styles.form}>
         <View style={styles.header}>
           <Text style={styles.title}>Bem-vindo de volta</Text>
           <Text style={styles.subtitle}>
@@ -74,8 +74,6 @@ export default function LoginScreen() {
             render={({ field: { value, onChange } }) => (
               <TextInput
                 style={[styles.input, errors.email && styles.inputError]}
-                placeholder="seu@email.com"
-                placeholderTextColor={theme.colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
                 keyboardType="email-address"
@@ -102,8 +100,7 @@ export default function LoginScreen() {
               <View style={[styles.inputWrapper, errors.password && styles.inputError]}>
                 <TextInput
                   style={styles.inputInner}
-                  placeholder="Digite sua senha"
-                  placeholderTextColor={theme.colors.textMuted}
+
                   secureTextEntry={!showPassword}
                   autoCapitalize="none"
                   autoCorrect={false}
