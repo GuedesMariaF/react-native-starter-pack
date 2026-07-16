@@ -14,8 +14,13 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Olá, {user?.name}!</Text>
-      <Text style={styles.subtitle}>{user?.email}</Text>
+      <View style={styles.content}>
+        <Text style={styles.greeting}>Olá, {user?.name} 👋</Text>
+        <Text style={styles.title}>Bem-vindo de volta</Text>
+        <Text style={styles.description}>
+          Você está conectado e pronto para começar. Explore tudo que preparamos para você.
+        </Text>
+      </View>
 
       <Pressable style={styles.button} onPress={() => logout()}>
         <Text style={styles.buttonText}>Sair</Text>

@@ -1,38 +1,45 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/lib/theme';
 
-export function useHomeStyles() {
+export function useOnboardingStyles() {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   return useMemo(
     () =>
       StyleSheet.create({
         container: {
           flex: 1,
           backgroundColor: theme.colors.background,
-          paddingHorizontal: theme.spacing.xl,
-          paddingBottom: 40,
-          justifyContent: 'space-between',
         },
         content: {
           flex: 1,
-          justifyContent: 'center',
-          gap: theme.spacing.sm,
+          paddingHorizontal: theme.spacing.xl,
+          paddingTop: insets.top + 32,
+          paddingBottom: insets.bottom + 32,
+          justifyContent: 'space-between',
+          zIndex: 1,
         },
-        greeting: {
-          ...theme.typography.body,
-          color: theme.colors.textMuted,
+        top: {
+          flex: 1,
+          justifyContent: 'flex-end',
+          paddingBottom: 48,
+          gap: theme.spacing.md,
         },
         title: {
-          ...theme.typography.heading,
-          fontSize: 32,
+          fontSize: 36,
+          fontWeight: '700',
+          lineHeight: 44,
           color: theme.colors.text,
         },
         description: {
           ...theme.typography.body,
           color: theme.colors.textMuted,
           lineHeight: 24,
-          marginTop: theme.spacing.xs,
+        },
+        bottom: {
+          gap: theme.spacing.md,
         },
         button: {
           backgroundColor: theme.colors.primary,
@@ -46,6 +53,6 @@ export function useHomeStyles() {
           fontWeight: '600',
         },
       }),
-    [theme],
+    [theme, insets],
   );
 }
