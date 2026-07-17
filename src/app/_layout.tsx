@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ToastProviderWithViewport } from '@/components/ui';
-import { ThemeProvider } from '@/lib/theme';
 import { queryClient } from '@/lib/query-client';
+import { ThemeProvider } from '@/lib/theme';
 import { useAuthStore } from '@/stores/auth-store';
 
 SplashScreen.setOptions({
@@ -34,7 +34,7 @@ function RootNavigator() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Protected guard={isAuthenticated}>
-        <Stack.Screen name="(app)" />
+        <Stack.Screen name="(protected)" />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuthenticated}>

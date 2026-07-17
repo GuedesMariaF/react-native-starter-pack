@@ -3,7 +3,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useAuthStore } from '@/stores/auth-store';
 import { useHomeStyles } from '@/styles/HomeScreen.styles';
 
-export default function HomeScreen() {
+export default function Home() {
   const { user, logout } = useAuthStore(
     useShallow((state) => ({
       user: state.user,
